@@ -11,7 +11,7 @@ const TEST_MODE =
   process.argv.includes('--test')
 
 // --- Config from .env (and argv for server_id) ---
-const SERVER_ID = process.env.SERVER_ID ?? process.argv[2]
+const SERVER_TOKEN = process.env.SERVER_TOKEN ?? process.argv[2]
 const API_BASE_URL = process.env.API_BASE_URL ?? 'https://metrics.ggpanel.site'
 
 const PGPASSWORD = process.env.PG_PASSWORD ?? 'postgres'
@@ -28,11 +28,11 @@ const PG_OMIT = process.env.PG_OMIT ?? 'log'
 const PG_SQL_LENGTH = process.env.PG_SQL_LENGTH ?? '10000'
 const PG_STATEMENTS_LIMIT = process.env.PG_STATEMENTS_LIMIT ?? '10000'
 
-if (!TEST_MODE && !SERVER_ID) {
-  console.error('❌ Set SERVER_ID in .env or run: bun run sendPgmetrics.ts <server_id>')
+if (!TEST_MODE && !SERVER_TOKEN) {
+  console.error('❌ Set SERVER_TOKEN in .env or run: bun run sendPgmetrics.ts <SERVER_TOKEN>')
   process.exit(1)
 }
-const serverId: string = SERVER_ID ?? 'test'
+const serverId: string = SERVER_TOKEN ?? 'test'
 
 if (!PGPASSWORD && PGHOST !== '/var/run/postgresql') {
   console.error('❌ Set PGPASSWORD in .env when using remote host')
